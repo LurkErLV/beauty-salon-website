@@ -9,24 +9,23 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as AboutRouteImport } from './routes/about'
+import { Route as LocaleRouteImport } from './routes/$locale'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as TalksIndexRouteImport } from './routes/talks.index'
-import { Route as SpeakersIndexRouteImport } from './routes/speakers.index'
-import { Route as ScheduleIndexRouteImport } from './routes/schedule.index'
-import { Route as TalksSlugRouteImport } from './routes/talks.$slug'
-import { Route as SpeakersSlugRouteImport } from './routes/speakers.$slug'
-import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
-import { Route as DemoPrismaRouteImport } from './routes/demo/prisma'
-import { Route as DemoI18nRouteImport } from './routes/demo.i18n'
-import { Route as DemoClerkRouteImport } from './routes/demo/clerk'
-import { Route as ApiRemyChatRouteImport } from './routes/api.remy-chat'
-import { Route as DemoFormSimpleRouteImport } from './routes/demo/form.simple'
-import { Route as DemoFormAddressRouteImport } from './routes/demo/form.address'
+import { Route as LocaleIndexRouteImport } from './routes/$locale.index'
+import { Route as LocaleTasksRouteImport } from './routes/$locale.tasks'
+import { Route as LocaleSignUpRouteImport } from './routes/$locale.sign-up'
+import { Route as LocaleSignInRouteImport } from './routes/$locale.sign-in'
+import { Route as LocalePreorderRouteImport } from './routes/$locale.preorder'
+import { Route as LocaleTasksSplatRouteImport } from './routes/$locale.tasks_.$'
+import { Route as LocaleSignUpSsoCallbackRouteImport } from './routes/$locale.sign-up_.sso-callback'
+import { Route as LocaleSignUpSplatRouteImport } from './routes/$locale.sign-up_.$'
+import { Route as LocaleSignInSsoCallbackRouteImport } from './routes/$locale.sign-in_.sso-callback'
+import { Route as LocaleAdminProductsRouteImport } from './routes/$locale.admin.products'
+import { Route as LocaleAdminPreordersRouteImport } from './routes/$locale.admin.preorders'
 
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
+const LocaleRoute = LocaleRouteImport.update({
+  id: '/$locale',
+  path: '/$locale',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -34,191 +33,166 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TalksIndexRoute = TalksIndexRouteImport.update({
-  id: '/talks/',
-  path: '/talks/',
-  getParentRoute: () => rootRouteImport,
+const LocaleIndexRoute = LocaleIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LocaleRoute,
 } as any)
-const SpeakersIndexRoute = SpeakersIndexRouteImport.update({
-  id: '/speakers/',
-  path: '/speakers/',
-  getParentRoute: () => rootRouteImport,
+const LocaleTasksRoute = LocaleTasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
+  getParentRoute: () => LocaleRoute,
 } as any)
-const ScheduleIndexRoute = ScheduleIndexRouteImport.update({
-  id: '/schedule/',
-  path: '/schedule/',
-  getParentRoute: () => rootRouteImport,
+const LocaleSignUpRoute = LocaleSignUpRouteImport.update({
+  id: '/sign-up',
+  path: '/sign-up',
+  getParentRoute: () => LocaleRoute,
 } as any)
-const TalksSlugRoute = TalksSlugRouteImport.update({
-  id: '/talks/$slug',
-  path: '/talks/$slug',
-  getParentRoute: () => rootRouteImport,
+const LocaleSignInRoute = LocaleSignInRouteImport.update({
+  id: '/sign-in',
+  path: '/sign-in',
+  getParentRoute: () => LocaleRoute,
 } as any)
-const SpeakersSlugRoute = SpeakersSlugRouteImport.update({
-  id: '/speakers/$slug',
-  path: '/speakers/$slug',
-  getParentRoute: () => rootRouteImport,
+const LocalePreorderRoute = LocalePreorderRouteImport.update({
+  id: '/preorder',
+  path: '/preorder',
+  getParentRoute: () => LocaleRoute,
 } as any)
-const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
-  id: '/demo/tanstack-query',
-  path: '/demo/tanstack-query',
-  getParentRoute: () => rootRouteImport,
+const LocaleTasksSplatRoute = LocaleTasksSplatRouteImport.update({
+  id: '/tasks_/$',
+  path: '/tasks/$',
+  getParentRoute: () => LocaleRoute,
 } as any)
-const DemoPrismaRoute = DemoPrismaRouteImport.update({
-  id: '/demo/prisma',
-  path: '/demo/prisma',
-  getParentRoute: () => rootRouteImport,
+const LocaleSignUpSsoCallbackRoute = LocaleSignUpSsoCallbackRouteImport.update({
+  id: '/sign-up_/sso-callback',
+  path: '/sign-up/sso-callback',
+  getParentRoute: () => LocaleRoute,
 } as any)
-const DemoI18nRoute = DemoI18nRouteImport.update({
-  id: '/demo/i18n',
-  path: '/demo/i18n',
-  getParentRoute: () => rootRouteImport,
+const LocaleSignUpSplatRoute = LocaleSignUpSplatRouteImport.update({
+  id: '/sign-up_/$',
+  path: '/sign-up/$',
+  getParentRoute: () => LocaleRoute,
 } as any)
-const DemoClerkRoute = DemoClerkRouteImport.update({
-  id: '/demo/clerk',
-  path: '/demo/clerk',
-  getParentRoute: () => rootRouteImport,
+const LocaleSignInSsoCallbackRoute = LocaleSignInSsoCallbackRouteImport.update({
+  id: '/sign-in_/sso-callback',
+  path: '/sign-in/sso-callback',
+  getParentRoute: () => LocaleRoute,
 } as any)
-const ApiRemyChatRoute = ApiRemyChatRouteImport.update({
-  id: '/api/remy-chat',
-  path: '/api/remy-chat',
-  getParentRoute: () => rootRouteImport,
+const LocaleAdminProductsRoute = LocaleAdminProductsRouteImport.update({
+  id: '/admin/products',
+  path: '/admin/products',
+  getParentRoute: () => LocaleRoute,
 } as any)
-const DemoFormSimpleRoute = DemoFormSimpleRouteImport.update({
-  id: '/demo/form/simple',
-  path: '/demo/form/simple',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoFormAddressRoute = DemoFormAddressRouteImport.update({
-  id: '/demo/form/address',
-  path: '/demo/form/address',
-  getParentRoute: () => rootRouteImport,
+const LocaleAdminPreordersRoute = LocaleAdminPreordersRouteImport.update({
+  id: '/admin/preorders',
+  path: '/admin/preorders',
+  getParentRoute: () => LocaleRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/api/remy-chat': typeof ApiRemyChatRoute
-  '/demo/clerk': typeof DemoClerkRoute
-  '/demo/i18n': typeof DemoI18nRoute
-  '/demo/prisma': typeof DemoPrismaRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/speakers/$slug': typeof SpeakersSlugRoute
-  '/talks/$slug': typeof TalksSlugRoute
-  '/schedule/': typeof ScheduleIndexRoute
-  '/speakers/': typeof SpeakersIndexRoute
-  '/talks/': typeof TalksIndexRoute
-  '/demo/form/address': typeof DemoFormAddressRoute
-  '/demo/form/simple': typeof DemoFormSimpleRoute
+  '/$locale': typeof LocaleRouteWithChildren
+  '/$locale/preorder': typeof LocalePreorderRoute
+  '/$locale/sign-in': typeof LocaleSignInRoute
+  '/$locale/sign-up': typeof LocaleSignUpRoute
+  '/$locale/tasks': typeof LocaleTasksRoute
+  '/$locale/': typeof LocaleIndexRoute
+  '/$locale/admin/preorders': typeof LocaleAdminPreordersRoute
+  '/$locale/admin/products': typeof LocaleAdminProductsRoute
+  '/$locale/sign-in/sso-callback': typeof LocaleSignInSsoCallbackRoute
+  '/$locale/sign-up/$': typeof LocaleSignUpSplatRoute
+  '/$locale/sign-up/sso-callback': typeof LocaleSignUpSsoCallbackRoute
+  '/$locale/tasks/$': typeof LocaleTasksSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/api/remy-chat': typeof ApiRemyChatRoute
-  '/demo/clerk': typeof DemoClerkRoute
-  '/demo/i18n': typeof DemoI18nRoute
-  '/demo/prisma': typeof DemoPrismaRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/speakers/$slug': typeof SpeakersSlugRoute
-  '/talks/$slug': typeof TalksSlugRoute
-  '/schedule': typeof ScheduleIndexRoute
-  '/speakers': typeof SpeakersIndexRoute
-  '/talks': typeof TalksIndexRoute
-  '/demo/form/address': typeof DemoFormAddressRoute
-  '/demo/form/simple': typeof DemoFormSimpleRoute
+  '/$locale/preorder': typeof LocalePreorderRoute
+  '/$locale/sign-in': typeof LocaleSignInRoute
+  '/$locale/sign-up': typeof LocaleSignUpRoute
+  '/$locale/tasks': typeof LocaleTasksRoute
+  '/$locale': typeof LocaleIndexRoute
+  '/$locale/admin/preorders': typeof LocaleAdminPreordersRoute
+  '/$locale/admin/products': typeof LocaleAdminProductsRoute
+  '/$locale/sign-in/sso-callback': typeof LocaleSignInSsoCallbackRoute
+  '/$locale/sign-up/$': typeof LocaleSignUpSplatRoute
+  '/$locale/sign-up/sso-callback': typeof LocaleSignUpSsoCallbackRoute
+  '/$locale/tasks/$': typeof LocaleTasksSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/api/remy-chat': typeof ApiRemyChatRoute
-  '/demo/clerk': typeof DemoClerkRoute
-  '/demo/i18n': typeof DemoI18nRoute
-  '/demo/prisma': typeof DemoPrismaRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/speakers/$slug': typeof SpeakersSlugRoute
-  '/talks/$slug': typeof TalksSlugRoute
-  '/schedule/': typeof ScheduleIndexRoute
-  '/speakers/': typeof SpeakersIndexRoute
-  '/talks/': typeof TalksIndexRoute
-  '/demo/form/address': typeof DemoFormAddressRoute
-  '/demo/form/simple': typeof DemoFormSimpleRoute
+  '/$locale': typeof LocaleRouteWithChildren
+  '/$locale/preorder': typeof LocalePreorderRoute
+  '/$locale/sign-in': typeof LocaleSignInRoute
+  '/$locale/sign-up': typeof LocaleSignUpRoute
+  '/$locale/tasks': typeof LocaleTasksRoute
+  '/$locale/': typeof LocaleIndexRoute
+  '/$locale/admin/preorders': typeof LocaleAdminPreordersRoute
+  '/$locale/admin/products': typeof LocaleAdminProductsRoute
+  '/$locale/sign-in_/sso-callback': typeof LocaleSignInSsoCallbackRoute
+  '/$locale/sign-up_/$': typeof LocaleSignUpSplatRoute
+  '/$locale/sign-up_/sso-callback': typeof LocaleSignUpSsoCallbackRoute
+  '/$locale/tasks_/$': typeof LocaleTasksSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/about'
-    | '/api/remy-chat'
-    | '/demo/clerk'
-    | '/demo/i18n'
-    | '/demo/prisma'
-    | '/demo/tanstack-query'
-    | '/speakers/$slug'
-    | '/talks/$slug'
-    | '/schedule/'
-    | '/speakers/'
-    | '/talks/'
-    | '/demo/form/address'
-    | '/demo/form/simple'
+    | '/$locale'
+    | '/$locale/preorder'
+    | '/$locale/sign-in'
+    | '/$locale/sign-up'
+    | '/$locale/tasks'
+    | '/$locale/'
+    | '/$locale/admin/preorders'
+    | '/$locale/admin/products'
+    | '/$locale/sign-in/sso-callback'
+    | '/$locale/sign-up/$'
+    | '/$locale/sign-up/sso-callback'
+    | '/$locale/tasks/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/about'
-    | '/api/remy-chat'
-    | '/demo/clerk'
-    | '/demo/i18n'
-    | '/demo/prisma'
-    | '/demo/tanstack-query'
-    | '/speakers/$slug'
-    | '/talks/$slug'
-    | '/schedule'
-    | '/speakers'
-    | '/talks'
-    | '/demo/form/address'
-    | '/demo/form/simple'
+    | '/$locale/preorder'
+    | '/$locale/sign-in'
+    | '/$locale/sign-up'
+    | '/$locale/tasks'
+    | '/$locale'
+    | '/$locale/admin/preorders'
+    | '/$locale/admin/products'
+    | '/$locale/sign-in/sso-callback'
+    | '/$locale/sign-up/$'
+    | '/$locale/sign-up/sso-callback'
+    | '/$locale/tasks/$'
   id:
     | '__root__'
     | '/'
-    | '/about'
-    | '/api/remy-chat'
-    | '/demo/clerk'
-    | '/demo/i18n'
-    | '/demo/prisma'
-    | '/demo/tanstack-query'
-    | '/speakers/$slug'
-    | '/talks/$slug'
-    | '/schedule/'
-    | '/speakers/'
-    | '/talks/'
-    | '/demo/form/address'
-    | '/demo/form/simple'
+    | '/$locale'
+    | '/$locale/preorder'
+    | '/$locale/sign-in'
+    | '/$locale/sign-up'
+    | '/$locale/tasks'
+    | '/$locale/'
+    | '/$locale/admin/preorders'
+    | '/$locale/admin/products'
+    | '/$locale/sign-in_/sso-callback'
+    | '/$locale/sign-up_/$'
+    | '/$locale/sign-up_/sso-callback'
+    | '/$locale/tasks_/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
-  ApiRemyChatRoute: typeof ApiRemyChatRoute
-  DemoClerkRoute: typeof DemoClerkRoute
-  DemoI18nRoute: typeof DemoI18nRoute
-  DemoPrismaRoute: typeof DemoPrismaRoute
-  DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
-  SpeakersSlugRoute: typeof SpeakersSlugRoute
-  TalksSlugRoute: typeof TalksSlugRoute
-  ScheduleIndexRoute: typeof ScheduleIndexRoute
-  SpeakersIndexRoute: typeof SpeakersIndexRoute
-  TalksIndexRoute: typeof TalksIndexRoute
-  DemoFormAddressRoute: typeof DemoFormAddressRoute
-  DemoFormSimpleRoute: typeof DemoFormSimpleRoute
+  LocaleRoute: typeof LocaleRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
+    '/$locale': {
+      id: '/$locale'
+      path: '/$locale'
+      fullPath: '/$locale'
+      preLoaderRoute: typeof LocaleRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -228,109 +202,131 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/talks/': {
-      id: '/talks/'
-      path: '/talks'
-      fullPath: '/talks/'
-      preLoaderRoute: typeof TalksIndexRouteImport
-      parentRoute: typeof rootRouteImport
+    '/$locale/': {
+      id: '/$locale/'
+      path: '/'
+      fullPath: '/$locale/'
+      preLoaderRoute: typeof LocaleIndexRouteImport
+      parentRoute: typeof LocaleRoute
     }
-    '/speakers/': {
-      id: '/speakers/'
-      path: '/speakers'
-      fullPath: '/speakers/'
-      preLoaderRoute: typeof SpeakersIndexRouteImport
-      parentRoute: typeof rootRouteImport
+    '/$locale/tasks': {
+      id: '/$locale/tasks'
+      path: '/tasks'
+      fullPath: '/$locale/tasks'
+      preLoaderRoute: typeof LocaleTasksRouteImport
+      parentRoute: typeof LocaleRoute
     }
-    '/schedule/': {
-      id: '/schedule/'
-      path: '/schedule'
-      fullPath: '/schedule/'
-      preLoaderRoute: typeof ScheduleIndexRouteImport
-      parentRoute: typeof rootRouteImport
+    '/$locale/sign-up': {
+      id: '/$locale/sign-up'
+      path: '/sign-up'
+      fullPath: '/$locale/sign-up'
+      preLoaderRoute: typeof LocaleSignUpRouteImport
+      parentRoute: typeof LocaleRoute
     }
-    '/talks/$slug': {
-      id: '/talks/$slug'
-      path: '/talks/$slug'
-      fullPath: '/talks/$slug'
-      preLoaderRoute: typeof TalksSlugRouteImport
-      parentRoute: typeof rootRouteImport
+    '/$locale/sign-in': {
+      id: '/$locale/sign-in'
+      path: '/sign-in'
+      fullPath: '/$locale/sign-in'
+      preLoaderRoute: typeof LocaleSignInRouteImport
+      parentRoute: typeof LocaleRoute
     }
-    '/speakers/$slug': {
-      id: '/speakers/$slug'
-      path: '/speakers/$slug'
-      fullPath: '/speakers/$slug'
-      preLoaderRoute: typeof SpeakersSlugRouteImport
-      parentRoute: typeof rootRouteImport
+    '/$locale/preorder': {
+      id: '/$locale/preorder'
+      path: '/preorder'
+      fullPath: '/$locale/preorder'
+      preLoaderRoute: typeof LocalePreorderRouteImport
+      parentRoute: typeof LocaleRoute
     }
-    '/demo/tanstack-query': {
-      id: '/demo/tanstack-query'
-      path: '/demo/tanstack-query'
-      fullPath: '/demo/tanstack-query'
-      preLoaderRoute: typeof DemoTanstackQueryRouteImport
-      parentRoute: typeof rootRouteImport
+    '/$locale/tasks_/$': {
+      id: '/$locale/tasks_/$'
+      path: '/tasks/$'
+      fullPath: '/$locale/tasks/$'
+      preLoaderRoute: typeof LocaleTasksSplatRouteImport
+      parentRoute: typeof LocaleRoute
     }
-    '/demo/prisma': {
-      id: '/demo/prisma'
-      path: '/demo/prisma'
-      fullPath: '/demo/prisma'
-      preLoaderRoute: typeof DemoPrismaRouteImport
-      parentRoute: typeof rootRouteImport
+    '/$locale/sign-up_/sso-callback': {
+      id: '/$locale/sign-up_/sso-callback'
+      path: '/sign-up/sso-callback'
+      fullPath: '/$locale/sign-up/sso-callback'
+      preLoaderRoute: typeof LocaleSignUpSsoCallbackRouteImport
+      parentRoute: typeof LocaleRoute
     }
-    '/demo/i18n': {
-      id: '/demo/i18n'
-      path: '/demo/i18n'
-      fullPath: '/demo/i18n'
-      preLoaderRoute: typeof DemoI18nRouteImport
-      parentRoute: typeof rootRouteImport
+    '/$locale/sign-up_/$': {
+      id: '/$locale/sign-up_/$'
+      path: '/sign-up/$'
+      fullPath: '/$locale/sign-up/$'
+      preLoaderRoute: typeof LocaleSignUpSplatRouteImport
+      parentRoute: typeof LocaleRoute
     }
-    '/demo/clerk': {
-      id: '/demo/clerk'
-      path: '/demo/clerk'
-      fullPath: '/demo/clerk'
-      preLoaderRoute: typeof DemoClerkRouteImport
-      parentRoute: typeof rootRouteImport
+    '/$locale/sign-in_/sso-callback': {
+      id: '/$locale/sign-in_/sso-callback'
+      path: '/sign-in/sso-callback'
+      fullPath: '/$locale/sign-in/sso-callback'
+      preLoaderRoute: typeof LocaleSignInSsoCallbackRouteImport
+      parentRoute: typeof LocaleRoute
     }
-    '/api/remy-chat': {
-      id: '/api/remy-chat'
-      path: '/api/remy-chat'
-      fullPath: '/api/remy-chat'
-      preLoaderRoute: typeof ApiRemyChatRouteImport
-      parentRoute: typeof rootRouteImport
+    '/$locale/admin/products': {
+      id: '/$locale/admin/products'
+      path: '/admin/products'
+      fullPath: '/$locale/admin/products'
+      preLoaderRoute: typeof LocaleAdminProductsRouteImport
+      parentRoute: typeof LocaleRoute
     }
-    '/demo/form/simple': {
-      id: '/demo/form/simple'
-      path: '/demo/form/simple'
-      fullPath: '/demo/form/simple'
-      preLoaderRoute: typeof DemoFormSimpleRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/form/address': {
-      id: '/demo/form/address'
-      path: '/demo/form/address'
-      fullPath: '/demo/form/address'
-      preLoaderRoute: typeof DemoFormAddressRouteImport
-      parentRoute: typeof rootRouteImport
+    '/$locale/admin/preorders': {
+      id: '/$locale/admin/preorders'
+      path: '/admin/preorders'
+      fullPath: '/$locale/admin/preorders'
+      preLoaderRoute: typeof LocaleAdminPreordersRouteImport
+      parentRoute: typeof LocaleRoute
     }
   }
 }
 
+interface LocaleRouteChildren {
+  LocalePreorderRoute: typeof LocalePreorderRoute
+  LocaleSignInRoute: typeof LocaleSignInRoute
+  LocaleSignUpRoute: typeof LocaleSignUpRoute
+  LocaleTasksRoute: typeof LocaleTasksRoute
+  LocaleIndexRoute: typeof LocaleIndexRoute
+  LocaleAdminPreordersRoute: typeof LocaleAdminPreordersRoute
+  LocaleAdminProductsRoute: typeof LocaleAdminProductsRoute
+  LocaleSignInSsoCallbackRoute: typeof LocaleSignInSsoCallbackRoute
+  LocaleSignUpSplatRoute: typeof LocaleSignUpSplatRoute
+  LocaleSignUpSsoCallbackRoute: typeof LocaleSignUpSsoCallbackRoute
+  LocaleTasksSplatRoute: typeof LocaleTasksSplatRoute
+}
+
+const LocaleRouteChildren: LocaleRouteChildren = {
+  LocalePreorderRoute: LocalePreorderRoute,
+  LocaleSignInRoute: LocaleSignInRoute,
+  LocaleSignUpRoute: LocaleSignUpRoute,
+  LocaleTasksRoute: LocaleTasksRoute,
+  LocaleIndexRoute: LocaleIndexRoute,
+  LocaleAdminPreordersRoute: LocaleAdminPreordersRoute,
+  LocaleAdminProductsRoute: LocaleAdminProductsRoute,
+  LocaleSignInSsoCallbackRoute: LocaleSignInSsoCallbackRoute,
+  LocaleSignUpSplatRoute: LocaleSignUpSplatRoute,
+  LocaleSignUpSsoCallbackRoute: LocaleSignUpSsoCallbackRoute,
+  LocaleTasksSplatRoute: LocaleTasksSplatRoute,
+}
+
+const LocaleRouteWithChildren =
+  LocaleRoute._addFileChildren(LocaleRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
-  ApiRemyChatRoute: ApiRemyChatRoute,
-  DemoClerkRoute: DemoClerkRoute,
-  DemoI18nRoute: DemoI18nRoute,
-  DemoPrismaRoute: DemoPrismaRoute,
-  DemoTanstackQueryRoute: DemoTanstackQueryRoute,
-  SpeakersSlugRoute: SpeakersSlugRoute,
-  TalksSlugRoute: TalksSlugRoute,
-  ScheduleIndexRoute: ScheduleIndexRoute,
-  SpeakersIndexRoute: SpeakersIndexRoute,
-  TalksIndexRoute: TalksIndexRoute,
-  DemoFormAddressRoute: DemoFormAddressRoute,
-  DemoFormSimpleRoute: DemoFormSimpleRoute,
+  LocaleRoute: LocaleRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

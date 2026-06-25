@@ -12,3 +12,60 @@ model Todo {
   title     String
   createdAt DateTime @default(now())
 }
+
+model Product {
+  id          Int             @id @default(autoincrement())
+  name        String
+  description String
+  brand       String?
+  imageUrl    String?
+  priceCents  Int
+  currency    String          @default("CHF")
+  isActive    Boolean         @default(true)
+  inStock     Boolean         @default(true)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  items       PreorderItem[]
+}
+
+model Preorder {
+  id            Int             @id @default(autoincrement())
+  clerkUserId   String
+  customerEmail String
+  customerName  String?
+  status        PreorderStatus  @default(PENDING)
+  note          String?
+  pickupAddress String
+  totalCents    Int
+  currency      String          @default("CHF")
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  items         PreorderItem[]
+
+  @@index([clerkUserId])
+  @@index([status])
+}
+
+model PreorderItem {
+  id              Int       @id @default(autoincrement())
+  preorderId      Int
+  productId       Int
+  productName     String
+  productBrand    String?
+  quantity        Int
+  unitPriceCents  Int
+  currency        String    @default("CHF")
+  preorder        Preorder  @relation(fields: [preorderId], references: [id], onDelete: Cascade)
+  product         Product   @relation(fields: [productId], references: [id])
+
+  @@index([preorderId])
+  @@index([productId])
+}
+
+enum PreorderStatus {
+  PENDING
+  CONFIRMED
+  READY
+  COMPLETED
+  CANCELLED
+}

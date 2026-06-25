@@ -1,43 +1,100 @@
+import { Clock, ExternalLink, MapPin, Phone } from 'lucide-react'
+
+import { m } from '#/paraglide/messages'
+import { useCurrentLocale } from '#/lib/locale'
+
+const MAP_URL =
+  'https://www.google.com/maps?q=47.363784,8.5336094&z=17&output=embed'
+const MAP_LINK = 'https://maps.app.goo.gl/BzKGjF37ch34Dp2c7'
+
 export default function Footer() {
   const year = new Date().getFullYear()
+  const locale = useCurrentLocale()
 
   return (
-    <footer className="mt-20 border-t border-[var(--line)] px-4 pb-14 pt-10 text-[var(--sea-ink-soft)]">
-      <div className="page-wrap flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
-        <p className="m-0 text-sm">
-          &copy; {year} Your name here. All rights reserved.
-        </p>
-        <p className="island-kicker m-0">Built with TanStack Start</p>
-      </div>
-      <div className="mt-4 flex justify-center gap-4">
-        <a
-          href="https://x.com/tan_stack"
-          target="_blank"
-          rel="noreferrer"
-          className="rounded-xl p-2 text-[var(--sea-ink-soft)] transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-        >
-          <span className="sr-only">Follow TanStack on X</span>
-          <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32">
-            <path
-              fill="currentColor"
-              d="M12.6 1h2.2L10 6.48 15.64 15h-4.41L7.78 9.82 3.23 15H1l5.14-5.84L.72 1h4.52l3.12 4.73L12.6 1zm-.77 12.67h1.22L4.57 2.26H3.26l8.57 11.41z"
+    <footer className="border-t border-[var(--line)] bg-[var(--surface-soft)] px-4 py-10 text-[var(--muted-ink)]">
+      <div className="page-wrap">
+        <div className="grid gap-8 lg:grid-cols-[1fr_1.15fr] lg:items-stretch">
+          <section className="flex flex-col justify-between gap-8">
+            <div>
+              <p className="eyebrow mb-4">
+                {m.footer_visit_label({}, { locale })}
+              </p>
+              <h2 className="section-title text-3xl">
+                {m.footer_visit_title({}, { locale })}
+              </h2>
+              <div className="mt-6 grid gap-4 text-sm">
+                <div className="flex gap-3">
+                  <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-[var(--accent)]" />
+                  <div>
+                    <p className="m-0 font-semibold text-[var(--ink)]">
+                      {m.footer_address_label({}, { locale })}
+                    </p>
+                    <p className="m-0 mt-1 leading-7">
+                      Alfred-Escher-Strasse 27, 8002 Zürich, Switzerland
+                    </p>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <Phone className="mt-0.5 h-5 w-5 shrink-0 text-[var(--accent)]" />
+                  <div>
+                    <p className="m-0 font-semibold text-[var(--ink)]">
+                      {m.footer_phone_label({}, { locale })}
+                    </p>
+                    <a
+                      href="tel:+41799132382"
+                      className="mt-1 inline-block font-semibold leading-7 text-[var(--ink)] no-underline transition hover:text-[var(--accent-strong)]"
+                    >
+                      +41 79 913 23 82
+                    </a>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <Clock className="mt-0.5 h-5 w-5 shrink-0 text-[var(--accent)]" />
+                  <div>
+                    <p className="m-0 font-semibold text-[var(--ink)]">
+                      {m.footer_hours_label({}, { locale })}
+                    </p>
+                    <p className="m-0 mt-1 leading-7">
+                      {m.footer_hours_weekdays({}, { locale })}
+                    </p>
+                    <p className="m-0 leading-7">
+                      {m.footer_hours_sunday({}, { locale })}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <a
+                href={MAP_LINK}
+                target="_blank"
+                rel="noreferrer"
+                className="secondary-action mt-6"
+              >
+                <ExternalLink className="h-4 w-4" />
+                {m.footer_open_map({}, { locale })}
+              </a>
+            </div>
+            <div className="text-sm">
+              <p className="m-0">
+                &copy; {year} {m.brand_name({}, { locale })}.{' '}
+                {m.footer_rights({}, { locale })}
+              </p>
+              <p className="m-0 mt-2 font-semibold text-[var(--ink)]">
+                {m.footer_tagline({}, { locale })}
+              </p>
+            </div>
+          </section>
+
+          <div className="overflow-hidden rounded-lg border border-[var(--line)] bg-[var(--surface)] shadow-[0_20px_50px_rgba(37,39,45,0.08)]">
+            <iframe
+              title={m.footer_map_title({}, { locale })}
+              src={MAP_URL}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="h-80 w-full border-0 sm:h-96 lg:h-full lg:min-h-96"
             />
-          </svg>
-        </a>
-        <a
-          href="https://github.com/TanStack"
-          target="_blank"
-          rel="noreferrer"
-          className="rounded-xl p-2 text-[var(--sea-ink-soft)] transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-        >
-          <span className="sr-only">Go to TanStack GitHub</span>
-          <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32">
-            <path
-              fill="currentColor"
-              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
-            />
-          </svg>
-        </a>
+          </div>
+        </div>
       </div>
     </footer>
   )

@@ -9,26 +9,47 @@ const adapter = new PrismaPg({
 const prisma = new PrismaClient({ adapter })
 
 async function main() {
-  console.log('🌱 Seeding database...')
+  console.log('Seeding preorder products...')
 
-  // Clear existing todos
-  await prisma.todo.deleteMany()
-
-  // Create example todos
-  const todos = await prisma.todo.createMany({
+  await prisma.product.createMany({
     data: [
-      { title: 'Buy groceries' },
-      { title: 'Read a book' },
-      { title: 'Workout' },
+      {
+        name: 'Keune Care Satin Oil Shampoo',
+        brand: 'Keune',
+        description:
+          'A salon shampoo for soft shine and smoother everyday hair care.',
+        priceCents: 2400,
+        currency: 'CHF',
+        inStock: true,
+      },
+      {
+        name: 'Keune Care Vital Nutrition Mask',
+        brand: 'Keune',
+        description:
+          'A nourishing mask for dry or stressed hair, reserved for salon pickup.',
+        priceCents: 3200,
+        currency: 'CHF',
+        inStock: true,
+      },
+      {
+        name: 'Brow Styling Gel',
+        brand: 'Île de Beauté',
+        description:
+          'A compact finishing product for polished brows between appointments.',
+        priceCents: 1800,
+        currency: 'CHF',
+        inStock: false,
+      },
     ],
+    skipDuplicates: true,
   })
 
-  console.log(`✅ Created ${todos.count} todos`)
+  console.log('Seed complete')
 }
 
 main()
-  .catch((e) => {
-    console.error('❌ Error seeding database:', e)
+  .catch((error) => {
+    console.error('Seed failed:', error)
     process.exit(1)
   })
   .finally(async () => {

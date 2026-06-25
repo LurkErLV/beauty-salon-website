@@ -1,145 +1,167 @@
 import { Link } from '@tanstack/react-router'
+import { Menu, X } from 'lucide-react'
+import { useState } from 'react'
+
+import { m } from '#/paraglide/messages'
+import { useCurrentLocale } from '#/lib/locale'
+
 import ClerkHeader from '../integrations/clerk/header-user.tsx'
 import ParaglideLocaleSwitcher from './LocaleSwitcher.tsx'
-import RemyButton from './RemyButton'
 import ThemeToggle from './ThemeToggle'
 
-export default function Header() {
-  return (
-    <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[var(--header-bg)] px-4 backdrop-blur-lg">
-      <nav className="page-wrap flex flex-wrap items-center gap-x-3 gap-y-2 py-3 sm:py-4">
-        <h2 className="m-0 flex-shrink-0 text-base font-semibold tracking-tight">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1.5 text-sm text-[var(--sea-ink)] no-underline shadow-[0_8px_24px_rgba(30,90,72,0.08)] sm:px-4 sm:py-2"
-          >
-            <span className="h-2 w-2 rounded-full bg-[linear-gradient(90deg,#56c6be,#7ed3bf)]" />
-            TanStack Start
-          </Link>
-        </h2>
+const navItems = [
+  { href: '#services', label: () => m.nav_services },
+  { href: '#studio', label: () => m.nav_studio },
+  { href: '#reviews', label: () => m.nav_reviews },
+  { href: '#booking', label: () => m.nav_booking },
+]
 
-        <div className="order-3 flex w-full flex-wrap items-center gap-x-4 gap-y-1 pb-1 text-sm font-semibold sm:order-none sm:w-auto sm:flex-nowrap sm:pb-0">
+export default function Header() {
+  const locale = useCurrentLocale()
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  function closeMenu() {
+    setIsMenuOpen(false)
+  }
+
+  return (
+    <header className="site-header-entrance sticky top-0 z-50 border-b border-[var(--line)] bg-[var(--header-bg)] px-4 backdrop-blur-xl">
+      <nav className="page-wrap flex min-h-16 min-w-0 items-center gap-4 py-3">
+        <Link
+          to="/$locale"
+          params={{ locale }}
+          onClick={closeMenu}
+          className="inline-flex shrink-0 items-center text-sm font-semibold text-[var(--ink)] no-underline"
+          aria-label={m.brand_name({}, { locale })}
+        >
+          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#fffaf6] shadow-[0_10px_24px_rgba(159,70,81,0.14)] ring-1 ring-[rgba(199,109,118,0.22)]">
+            <LogoMark />
+          </span>
+          <span className="ml-2.5 flex min-w-0 flex-col leading-none">
+            <span className="whitespace-nowrap font-[Georgia,serif] text-[1.08rem] font-semibold text-[var(--ink)] sm:text-[1.22rem]">
+              {"\u00cele de Beaut\u00e9"}
+            </span>
+            <span className="mt-1 hidden whitespace-nowrap text-[0.58rem] font-bold uppercase tracking-[0.28em] text-[var(--accent-strong)] sm:block">
+              Beauty Salon
+            </span>
+          </span>
+        </Link>
+
+        <div className="hidden min-w-0 flex-1 items-center justify-center gap-2 text-sm font-semibold min-[950px]:flex">
+          {navItems.map((item) => (
+            <a key={item.href} href={item.href} className="nav-link">
+              {item.label()({}, { locale })}
+            </a>
+          ))}
           <Link
-            to="/"
+            to="/$locale/preorder"
+            params={{ locale }}
             className="nav-link"
-            activeProps={{ className: 'nav-link is-active' }}
           >
-            Home
+            {m.nav_preorder({}, { locale })}
           </Link>
-          <Link
-            to="/about"
-            className="nav-link"
-            activeProps={{ className: 'nav-link is-active' }}
-          >
-            About
-          </Link>
-          <a
-            href="https://tanstack.com/start/latest/docs/framework/react/overview"
-            className="nav-link"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Docs
-          </a>
-          <details className="relative w-full sm:w-auto">
-            <summary className="nav-link list-none cursor-pointer">
-              Demos
-            </summary>
-            <div className="mt-2 min-w-56 rounded-xl border border-[var(--line)] bg-[var(--header-bg)] p-2 shadow-lg sm:absolute sm:right-0">
-              <a
-                href="/demo/clerk"
-                className="block rounded-lg px-3 py-2 text-sm text-[var(--sea-ink-soft)] no-underline transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-              >
-                Clerk
-              </a>
-              <a
-                href="/demo/prisma"
-                className="block rounded-lg px-3 py-2 text-sm text-[var(--sea-ink-soft)] no-underline transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-              >
-                Prisma
-              </a>
-              <a
-                href="/demo/form/simple"
-                className="block rounded-lg px-3 py-2 text-sm text-[var(--sea-ink-soft)] no-underline transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-              >
-                Simple Form
-              </a>
-              <a
-                href="/demo/form/address"
-                className="block rounded-lg px-3 py-2 text-sm text-[var(--sea-ink-soft)] no-underline transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-              >
-                Address Form
-              </a>
-              <a
-                href="/demo/i18n"
-                className="block rounded-lg px-3 py-2 text-sm text-[var(--sea-ink-soft)] no-underline transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-              >
-                I18n example
-              </a>
-              <a
-                href="/demo/tanstack-query"
-                className="block rounded-lg px-3 py-2 text-sm text-[var(--sea-ink-soft)] no-underline transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-              >
-                TanStack Query
-              </a>
-              <a
-                href="/schedule"
-                className="block rounded-lg px-3 py-2 text-sm text-[var(--sea-ink-soft)] no-underline transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-              >
-                Schedule
-              </a>
-              <a
-                href="/speakers"
-                className="block rounded-lg px-3 py-2 text-sm text-[var(--sea-ink-soft)] no-underline transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-              >
-                Speakers
-              </a>
-              <a
-                href="/talks"
-                className="block rounded-lg px-3 py-2 text-sm text-[var(--sea-ink-soft)] no-underline transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-              >
-                Sessions
-              </a>
-            </div>
-          </details>
         </div>
 
-        <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
-          <a
-            href="https://x.com/tan_stack"
-            target="_blank"
-            rel="noreferrer"
-            className="hidden rounded-xl p-2 text-[var(--sea-ink-soft)] transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)] sm:block"
-          >
-            <span className="sr-only">Follow TanStack on X</span>
-            <svg viewBox="0 0 16 16" aria-hidden="true" width="24" height="24">
-              <path
-                fill="currentColor"
-                d="M12.6 1h2.2L10 6.48 15.64 15h-4.41L7.78 9.82 3.23 15H1l5.14-5.84L.72 1h4.52l3.12 4.73L12.6 1zm-.77 12.67h1.22L4.57 2.26H3.26l8.57 11.41z"
-              />
-            </svg>
-          </a>
-          <a
-            href="https://github.com/TanStack"
-            target="_blank"
-            rel="noreferrer"
-            className="hidden rounded-xl p-2 text-[var(--sea-ink-soft)] transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)] sm:block"
-          >
-            <span className="sr-only">Go to TanStack GitHub</span>
-            <svg viewBox="0 0 16 16" aria-hidden="true" width="24" height="24">
-              <path
-                fill="currentColor"
-                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
-              />
-            </svg>
-          </a>
-          <ClerkHeader />
-          <ParaglideLocaleSwitcher />
-          <RemyButton />
-
+        <div className="ml-auto flex min-w-fit shrink-0 items-center gap-2">
+          <div className="hidden shrink-0 min-[950px]:block">
+            <ClerkHeader />
+          </div>
+          <div className="hidden shrink-0 min-[950px]:block">
+            <ParaglideLocaleSwitcher />
+          </div>
           <ThemeToggle />
+          <button
+            type="button"
+            className="inline-grid h-9 w-9 place-items-center rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] text-[var(--ink)] transition hover:bg-[var(--surface-soft)] min-[950px]:hidden"
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setIsMenuOpen((open) => !open)}
+          >
+            {isMenuOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
+          </button>
         </div>
       </nav>
+
+      {isMenuOpen && (
+        <div
+          id="mobile-menu"
+          className="page-wrap border-t border-[var(--line)] py-4 min-[950px]:hidden"
+        >
+          <div className="grid gap-2">
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="rounded-lg px-3 py-3 text-sm font-semibold text-[var(--ink)] no-underline transition hover:bg-[var(--surface-soft)]"
+                onClick={closeMenu}
+              >
+                {item.label()({}, { locale })}
+              </a>
+            ))}
+            <Link
+              to="/$locale/preorder"
+              params={{ locale }}
+              className="rounded-lg px-3 py-3 text-sm font-semibold text-[var(--ink)] no-underline transition hover:bg-[var(--surface-soft)]"
+              onClick={closeMenu}
+            >
+              {m.nav_preorder({}, { locale })}
+            </Link>
+          </div>
+
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--line)] pt-4">
+            <ParaglideLocaleSwitcher />
+            <div className="lg:hidden">
+              <ClerkHeader />
+            </div>
+          </div>
+        </div>
+      )}
     </header>
+  )
+}
+
+function LogoMark() {
+  return (
+    <svg
+      className="h-10 w-10 rounded-full"
+      viewBox="0 0 64 64"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <circle cx="32" cy="32" r="30" fill="#fffaf6" />
+      <circle
+        cx="32"
+        cy="32"
+        r="24"
+        fill="none"
+        stroke="#c76d76"
+        strokeWidth="3"
+      />
+      <circle
+        cx="32"
+        cy="32"
+        r="19"
+        fill="none"
+        stroke="#e6a2b1"
+        strokeDasharray="92 18"
+        strokeWidth="2"
+      />
+      <text
+        x="32"
+        y="39"
+        fill="#9f4651"
+        fontFamily="Georgia, serif"
+        fontSize="19"
+        fontWeight="700"
+        textAnchor="middle"
+      >
+        {"\u00ceB"}
+      </text>
+    </svg>
   )
 }
