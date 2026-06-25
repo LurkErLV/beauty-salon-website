@@ -6,7 +6,11 @@ import { m } from '#/paraglide/messages'
 import { useCurrentLocale } from '#/lib/locale'
 import { useLastKnownAuthState } from '#/hooks/useLastKnownAuthState'
 
-export default function HeaderUser() {
+export default function HeaderUser({
+  onNavigate,
+}: {
+  onNavigate?: () => void
+}) {
   const locale = useCurrentLocale()
   const { isLoaded, isSignedIn, lastKnownState } = useLastKnownAuthState()
 
@@ -40,7 +44,12 @@ export default function HeaderUser() {
           />
         </div>
       ) : (
-        <Link to="/$locale/sign-in" params={{ locale }} className="auth-button">
+        <Link
+          to="/$locale/sign-in"
+          params={{ locale }}
+          className="auth-button"
+          onClick={onNavigate}
+        >
           <LogIn className="h-4 w-4" />
           <span className="min-w-fit">{m.auth_button({}, { locale })}</span>
         </Link>

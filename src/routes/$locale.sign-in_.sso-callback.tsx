@@ -2,6 +2,7 @@ import { HandleSSOCallback } from '@clerk/tanstack-react-start'
 import { ClientOnly, createFileRoute, redirect } from '@tanstack/react-router'
 import { useNavigate } from '@tanstack/react-router'
 
+import { AuthLoadingState } from '#/components/AuthShell'
 import { isAppLocale } from '#/lib/locale'
 
 export const Route = createFileRoute('/$locale/sign-in_/sso-callback')({
@@ -29,15 +30,10 @@ function SsoCallbackPage() {
 
   return (
     <main className="grid min-h-[calc(100vh-12rem)] place-items-center px-4">
-      <ClientOnly
-        fallback={
-          <div className="auth-form-skeleton w-full max-w-md" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-          </div>
-        }
-      >
+      <div className="w-full max-w-md">
+        <AuthLoadingState />
+      </div>
+      <ClientOnly fallback={null}>
         <HandleSSOCallback
           navigateToApp={({ decorateUrl, session }) => {
             if (session?.currentTask) {

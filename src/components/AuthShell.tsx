@@ -79,3 +79,20 @@ export function AuthSkeleton() {
     </div>
   )
 }
+
+export function AuthLoadingState({
+  label = 'Preparing your secure session...',
+}: {
+  label?: string
+}) {
+  return (
+    <div
+      className="flex min-h-64 w-full flex-col items-center justify-center gap-5 rounded-lg border border-[var(--line)] bg-[var(--surface)] p-8 text-center shadow-[0_20px_50px_rgba(37,39,45,0.08)]"
+      role="status"
+      aria-live="polite"
+    >
+      <span className="auth-loader" aria-hidden="true" />
+      <p className="text-sm font-semibold text-[var(--muted-ink)]">{label}</p>
+    </div>
+  )
+}

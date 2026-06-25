@@ -10,10 +10,10 @@ import ParaglideLocaleSwitcher from './LocaleSwitcher.tsx'
 import ThemeToggle from './ThemeToggle'
 
 const navItems = [
-  { href: '#services', label: () => m.nav_services },
-  { href: '#studio', label: () => m.nav_studio },
-  { href: '#reviews', label: () => m.nav_reviews },
-  { href: '#booking', label: () => m.nav_booking },
+  { hash: 'services', label: () => m.nav_services },
+  { hash: 'studio', label: () => m.nav_studio },
+  { hash: 'reviews', label: () => m.nav_reviews },
+  { hash: 'booking', label: () => m.nav_booking },
 ]
 
 export default function Header() {
@@ -49,9 +49,15 @@ export default function Header() {
 
         <div className="hidden min-w-0 flex-1 items-center justify-center gap-2 text-sm font-semibold min-[950px]:flex">
           {navItems.map((item) => (
-            <a key={item.href} href={item.href} className="nav-link">
+            <Link
+              key={item.hash}
+              to="/$locale"
+              params={{ locale }}
+              hash={item.hash}
+              className="nav-link"
+            >
               {item.label()({}, { locale })}
-            </a>
+            </Link>
           ))}
           <Link
             to="/$locale/preorder"
@@ -94,14 +100,16 @@ export default function Header() {
         >
           <div className="grid gap-2">
             {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
+              <Link
+                key={item.hash}
+                to="/$locale"
+                params={{ locale }}
+                hash={item.hash}
                 className="rounded-lg px-3 py-3 text-sm font-semibold text-[var(--ink)] no-underline transition hover:bg-[var(--surface-soft)]"
                 onClick={closeMenu}
               >
                 {item.label()({}, { locale })}
-              </a>
+              </Link>
             ))}
             <Link
               to="/$locale/preorder"
@@ -114,9 +122,9 @@ export default function Header() {
           </div>
 
           <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--line)] pt-4">
-            <ParaglideLocaleSwitcher />
+            <ParaglideLocaleSwitcher onNavigate={closeMenu} />
             <div className="lg:hidden">
-              <ClerkHeader />
+              <ClerkHeader onNavigate={closeMenu} />
             </div>
           </div>
         </div>

@@ -209,6 +209,10 @@ a[aria-disabled='true'] {
   @apply h-5 w-1/2;
 }
 
+.auth-loader {
+  @apply h-11 w-11 rounded-full border-2 border-[var(--line)] border-t-[var(--accent)] animate-spin;
+}
+
 .auth-page-panel :where([class*='formFieldInputGroup']):has(input[type='tel']) {
   display: flex;
   align-items: center;

@@ -16,7 +16,11 @@ function getLocalizedPath(pathname: string, locale: string) {
   return `/${locale}${suffix}`
 }
 
-export default function ParaglideLocaleSwitcher() {
+export default function ParaglideLocaleSwitcher({
+  onNavigate,
+}: {
+  onNavigate?: () => void
+}) {
   const currentLocale = useCurrentLocale()
   const { pathname, hash } = useRouterState({
     select: (state) => state.location,
@@ -39,6 +43,7 @@ export default function ParaglideLocaleSwitcher() {
             'rounded-full border border-[var(--chip-line)] px-2.5 py-1 text-xs font-semibold uppercase text-[var(--muted-ink)] no-underline transition hover:bg-[var(--surface-soft)] hover:text-[var(--muted-ink)]',
             locale === currentLocale && 'bg-[var(--ink)] text-[var(--surface)]',
           )}
+          onClick={onNavigate}
         >
           {locale}
         </Link>

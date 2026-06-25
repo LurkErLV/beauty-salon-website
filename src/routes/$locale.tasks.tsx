@@ -6,7 +6,11 @@ import {
 } from '@clerk/tanstack-react-start'
 import { ClientOnly, createFileRoute, redirect } from '@tanstack/react-router'
 
-import { AuthShell, AuthSkeleton, clerkAppearance } from '#/components/AuthShell'
+import {
+  AuthLoadingState,
+  AuthShell,
+  clerkAppearance,
+} from '#/components/AuthShell'
 import { isAppLocale, useCurrentLocale } from '#/lib/locale'
 import { m } from '#/paraglide/messages'
 
@@ -29,7 +33,7 @@ function TasksPage() {
       title={m.auth_signup_title({}, { locale })}
       description={m.auth_signup_description({}, { locale })}
     >
-      <ClientOnly fallback={<AuthSkeleton />}>
+      <ClientOnly fallback={<AuthLoadingState />}>
         <TaskContent />
       </ClientOnly>
     </AuthShell>
@@ -40,7 +44,7 @@ function TaskContent() {
   const { session, isLoaded } = useSession()
 
   if (!isLoaded) {
-    return <AuthSkeleton />
+    return <AuthLoadingState />
   }
 
   const taskKey = session?.currentTask?.key
@@ -57,5 +61,5 @@ function TaskContent() {
     return <TaskSetupMFA appearance={clerkAppearance} />
   }
 
-  return <AuthSkeleton />
+  return <AuthLoadingState />
 }
