@@ -6,8 +6,13 @@ import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import viteReact from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
+import { nitro } from 'nitro/vite'
+
 const config = defineConfig({
   resolve: { tsconfigPaths: true },
+  ssr: {
+    external: ['@clerk/tanstack-react-start'],
+  },
   plugins: [
     paraglideVitePlugin({
       project: './project.inlang',
@@ -16,6 +21,7 @@ const config = defineConfig({
     }),
     tailwindcss(),
     tanstackStart(),
+    nitro({ preset: 'node-server' }),
     viteReact(),
   ],
 })
