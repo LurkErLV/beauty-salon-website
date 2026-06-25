@@ -315,14 +315,17 @@ export const uploadProductImage = createServerFn({ method: 'POST' })
       throw new Error('Image must be smaller than 5 MB.')
     }
 
-    const uploadDir = join(process.cwd(), 'public', 'preorder-products')
     const fallbackExtension = data.file.type.split('/')[1] || 'jpg'
     const extension = sanitizeExtension(extname(data.file.name)) || fallbackExtension
     const filename = `${randomUUID()}.${extension}`
     const bytes = Buffer.from(await data.file.arrayBuffer())
 
-    await mkdir(uploadDir, { recursive: true })
-    await writeFile(join(uploadDir, filename), bytes)
+    await Promise.all(
+      getProductImageUploadDirs().map(async (uploadDir) => {
+        await mkdir(uploadDir, { recursive: true })
+        await writeFile(join(uploadDir, filename), bytes)
+      }),
+    )
 
     return { imageUrl: `/preorder-products/${filename}` }
   })
@@ -400,6 +403,16 @@ function sanitizeExtension(extension: string) {
   const allowed = new Set(['jpg', 'jpeg', 'png', 'webp', 'gif', 'avif'])
 
   return allowed.has(normalized) ? normalized : ''
+}
+
+function getProductImageUploadDirs() {
+  const cwd = process.cwd()
+  const dirs = [
+    join(cwd, 'public', 'preorder-products'),
+    join(cwd, '.output', 'public', 'preorder-products'),
+  ]
+
+  return [...new Set(dirs)]
 }
 
 async function requireVerifiedUser() {
