@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as LocaleRouteImport } from './routes/$locale'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LocaleIndexRouteImport } from './routes/$locale.index'
+import { Route as PreorderProductsSplatRouteImport } from './routes/preorder-products.$'
 import { Route as LocaleTasksRouteImport } from './routes/$locale.tasks'
 import { Route as LocaleSignUpRouteImport } from './routes/$locale.sign-up'
 import { Route as LocaleSignInRouteImport } from './routes/$locale.sign-in'
@@ -37,6 +38,11 @@ const LocaleIndexRoute = LocaleIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => LocaleRoute,
+} as any)
+const PreorderProductsSplatRoute = PreorderProductsSplatRouteImport.update({
+  id: '/preorder-products/$',
+  path: '/preorder-products/$',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const LocaleTasksRoute = LocaleTasksRouteImport.update({
   id: '/tasks',
@@ -96,6 +102,7 @@ export interface FileRoutesByFullPath {
   '/$locale/sign-in': typeof LocaleSignInRoute
   '/$locale/sign-up': typeof LocaleSignUpRoute
   '/$locale/tasks': typeof LocaleTasksRoute
+  '/preorder-products/$': typeof PreorderProductsSplatRoute
   '/$locale/': typeof LocaleIndexRoute
   '/$locale/admin/preorders': typeof LocaleAdminPreordersRoute
   '/$locale/admin/products': typeof LocaleAdminProductsRoute
@@ -110,6 +117,7 @@ export interface FileRoutesByTo {
   '/$locale/sign-in': typeof LocaleSignInRoute
   '/$locale/sign-up': typeof LocaleSignUpRoute
   '/$locale/tasks': typeof LocaleTasksRoute
+  '/preorder-products/$': typeof PreorderProductsSplatRoute
   '/$locale': typeof LocaleIndexRoute
   '/$locale/admin/preorders': typeof LocaleAdminPreordersRoute
   '/$locale/admin/products': typeof LocaleAdminProductsRoute
@@ -126,6 +134,7 @@ export interface FileRoutesById {
   '/$locale/sign-in': typeof LocaleSignInRoute
   '/$locale/sign-up': typeof LocaleSignUpRoute
   '/$locale/tasks': typeof LocaleTasksRoute
+  '/preorder-products/$': typeof PreorderProductsSplatRoute
   '/$locale/': typeof LocaleIndexRoute
   '/$locale/admin/preorders': typeof LocaleAdminPreordersRoute
   '/$locale/admin/products': typeof LocaleAdminProductsRoute
@@ -143,6 +152,7 @@ export interface FileRouteTypes {
     | '/$locale/sign-in'
     | '/$locale/sign-up'
     | '/$locale/tasks'
+    | '/preorder-products/$'
     | '/$locale/'
     | '/$locale/admin/preorders'
     | '/$locale/admin/products'
@@ -157,6 +167,7 @@ export interface FileRouteTypes {
     | '/$locale/sign-in'
     | '/$locale/sign-up'
     | '/$locale/tasks'
+    | '/preorder-products/$'
     | '/$locale'
     | '/$locale/admin/preorders'
     | '/$locale/admin/products'
@@ -172,6 +183,7 @@ export interface FileRouteTypes {
     | '/$locale/sign-in'
     | '/$locale/sign-up'
     | '/$locale/tasks'
+    | '/preorder-products/$'
     | '/$locale/'
     | '/$locale/admin/preorders'
     | '/$locale/admin/products'
@@ -184,6 +196,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LocaleRoute: typeof LocaleRouteWithChildren
+  PreorderProductsSplatRoute: typeof PreorderProductsSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -208,6 +221,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/$locale/'
       preLoaderRoute: typeof LocaleIndexRouteImport
       parentRoute: typeof LocaleRoute
+    }
+    '/preorder-products/$': {
+      id: '/preorder-products/$'
+      path: '/preorder-products/$'
+      fullPath: '/preorder-products/$'
+      preLoaderRoute: typeof PreorderProductsSplatRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/$locale/tasks': {
       id: '/$locale/tasks'
@@ -316,6 +336,7 @@ const LocaleRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LocaleRoute: LocaleRouteWithChildren,
+  PreorderProductsSplatRoute: PreorderProductsSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
