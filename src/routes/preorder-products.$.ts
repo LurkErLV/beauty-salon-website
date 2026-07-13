@@ -55,7 +55,13 @@ function getSafeFilename(request: Request) {
     return ''
   }
 
-  const rawFilename = decodeURIComponent(pathname.slice(prefix.length))
+  let rawFilename = ''
+  try {
+    rawFilename = decodeURIComponent(pathname.slice(prefix.length))
+  } catch {
+    return ''
+  }
+
   const filename = basename(rawFilename)
 
   if (filename !== rawFilename || !/^[\w.-]+$/.test(filename)) {

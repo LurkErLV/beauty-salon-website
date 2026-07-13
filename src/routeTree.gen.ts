@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as LocaleRouteImport } from './routes/$locale'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LocaleIndexRouteImport } from './routes/$locale.index'
@@ -16,14 +17,22 @@ import { Route as PreorderProductsSplatRouteImport } from './routes/preorder-pro
 import { Route as LocaleTasksRouteImport } from './routes/$locale.tasks'
 import { Route as LocaleSignUpRouteImport } from './routes/$locale.sign-up'
 import { Route as LocaleSignInRouteImport } from './routes/$locale.sign-in'
+import { Route as LocaleServicesRouteImport } from './routes/$locale.services'
 import { Route as LocalePreorderRouteImport } from './routes/$locale.preorder'
+import { Route as LocaleAdminIndexRouteImport } from './routes/$locale.admin.index'
 import { Route as LocaleTasksSplatRouteImport } from './routes/$locale.tasks_.$'
 import { Route as LocaleSignUpSsoCallbackRouteImport } from './routes/$locale.sign-up_.sso-callback'
 import { Route as LocaleSignUpSplatRouteImport } from './routes/$locale.sign-up_.$'
 import { Route as LocaleSignInSsoCallbackRouteImport } from './routes/$locale.sign-in_.sso-callback'
+import { Route as LocaleAdminServicesRouteImport } from './routes/$locale.admin.services'
 import { Route as LocaleAdminProductsRouteImport } from './routes/$locale.admin.products'
 import { Route as LocaleAdminPreordersRouteImport } from './routes/$locale.admin.preorders'
 
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LocaleRoute = LocaleRouteImport.update({
   id: '/$locale',
   path: '/$locale',
@@ -59,9 +68,19 @@ const LocaleSignInRoute = LocaleSignInRouteImport.update({
   path: '/sign-in',
   getParentRoute: () => LocaleRoute,
 } as any)
+const LocaleServicesRoute = LocaleServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => LocaleRoute,
+} as any)
 const LocalePreorderRoute = LocalePreorderRouteImport.update({
   id: '/preorder',
   path: '/preorder',
+  getParentRoute: () => LocaleRoute,
+} as any)
+const LocaleAdminIndexRoute = LocaleAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
   getParentRoute: () => LocaleRoute,
 } as any)
 const LocaleTasksSplatRoute = LocaleTasksSplatRouteImport.update({
@@ -84,6 +103,11 @@ const LocaleSignInSsoCallbackRoute = LocaleSignInSsoCallbackRouteImport.update({
   path: '/sign-in/sso-callback',
   getParentRoute: () => LocaleRoute,
 } as any)
+const LocaleAdminServicesRoute = LocaleAdminServicesRouteImport.update({
+  id: '/admin/services',
+  path: '/admin/services',
+  getParentRoute: () => LocaleRoute,
+} as any)
 const LocaleAdminProductsRoute = LocaleAdminProductsRouteImport.update({
   id: '/admin/products',
   path: '/admin/products',
@@ -98,7 +122,9 @@ const LocaleAdminPreordersRoute = LocaleAdminPreordersRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$locale': typeof LocaleRouteWithChildren
+  '/admin': typeof AdminRoute
   '/$locale/preorder': typeof LocalePreorderRoute
+  '/$locale/services': typeof LocaleServicesRoute
   '/$locale/sign-in': typeof LocaleSignInRoute
   '/$locale/sign-up': typeof LocaleSignUpRoute
   '/$locale/tasks': typeof LocaleTasksRoute
@@ -106,14 +132,18 @@ export interface FileRoutesByFullPath {
   '/$locale/': typeof LocaleIndexRoute
   '/$locale/admin/preorders': typeof LocaleAdminPreordersRoute
   '/$locale/admin/products': typeof LocaleAdminProductsRoute
+  '/$locale/admin/services': typeof LocaleAdminServicesRoute
   '/$locale/sign-in/sso-callback': typeof LocaleSignInSsoCallbackRoute
   '/$locale/sign-up/$': typeof LocaleSignUpSplatRoute
   '/$locale/sign-up/sso-callback': typeof LocaleSignUpSsoCallbackRoute
   '/$locale/tasks/$': typeof LocaleTasksSplatRoute
+  '/$locale/admin/': typeof LocaleAdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/$locale/preorder': typeof LocalePreorderRoute
+  '/$locale/services': typeof LocaleServicesRoute
   '/$locale/sign-in': typeof LocaleSignInRoute
   '/$locale/sign-up': typeof LocaleSignUpRoute
   '/$locale/tasks': typeof LocaleTasksRoute
@@ -121,16 +151,20 @@ export interface FileRoutesByTo {
   '/$locale': typeof LocaleIndexRoute
   '/$locale/admin/preorders': typeof LocaleAdminPreordersRoute
   '/$locale/admin/products': typeof LocaleAdminProductsRoute
+  '/$locale/admin/services': typeof LocaleAdminServicesRoute
   '/$locale/sign-in/sso-callback': typeof LocaleSignInSsoCallbackRoute
   '/$locale/sign-up/$': typeof LocaleSignUpSplatRoute
   '/$locale/sign-up/sso-callback': typeof LocaleSignUpSsoCallbackRoute
   '/$locale/tasks/$': typeof LocaleTasksSplatRoute
+  '/$locale/admin': typeof LocaleAdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$locale': typeof LocaleRouteWithChildren
+  '/admin': typeof AdminRoute
   '/$locale/preorder': typeof LocalePreorderRoute
+  '/$locale/services': typeof LocaleServicesRoute
   '/$locale/sign-in': typeof LocaleSignInRoute
   '/$locale/sign-up': typeof LocaleSignUpRoute
   '/$locale/tasks': typeof LocaleTasksRoute
@@ -138,17 +172,21 @@ export interface FileRoutesById {
   '/$locale/': typeof LocaleIndexRoute
   '/$locale/admin/preorders': typeof LocaleAdminPreordersRoute
   '/$locale/admin/products': typeof LocaleAdminProductsRoute
+  '/$locale/admin/services': typeof LocaleAdminServicesRoute
   '/$locale/sign-in_/sso-callback': typeof LocaleSignInSsoCallbackRoute
   '/$locale/sign-up_/$': typeof LocaleSignUpSplatRoute
   '/$locale/sign-up_/sso-callback': typeof LocaleSignUpSsoCallbackRoute
   '/$locale/tasks_/$': typeof LocaleTasksSplatRoute
+  '/$locale/admin/': typeof LocaleAdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/$locale'
+    | '/admin'
     | '/$locale/preorder'
+    | '/$locale/services'
     | '/$locale/sign-in'
     | '/$locale/sign-up'
     | '/$locale/tasks'
@@ -156,14 +194,18 @@ export interface FileRouteTypes {
     | '/$locale/'
     | '/$locale/admin/preorders'
     | '/$locale/admin/products'
+    | '/$locale/admin/services'
     | '/$locale/sign-in/sso-callback'
     | '/$locale/sign-up/$'
     | '/$locale/sign-up/sso-callback'
     | '/$locale/tasks/$'
+    | '/$locale/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin'
     | '/$locale/preorder'
+    | '/$locale/services'
     | '/$locale/sign-in'
     | '/$locale/sign-up'
     | '/$locale/tasks'
@@ -171,15 +213,19 @@ export interface FileRouteTypes {
     | '/$locale'
     | '/$locale/admin/preorders'
     | '/$locale/admin/products'
+    | '/$locale/admin/services'
     | '/$locale/sign-in/sso-callback'
     | '/$locale/sign-up/$'
     | '/$locale/sign-up/sso-callback'
     | '/$locale/tasks/$'
+    | '/$locale/admin'
   id:
     | '__root__'
     | '/'
     | '/$locale'
+    | '/admin'
     | '/$locale/preorder'
+    | '/$locale/services'
     | '/$locale/sign-in'
     | '/$locale/sign-up'
     | '/$locale/tasks'
@@ -187,20 +233,30 @@ export interface FileRouteTypes {
     | '/$locale/'
     | '/$locale/admin/preorders'
     | '/$locale/admin/products'
+    | '/$locale/admin/services'
     | '/$locale/sign-in_/sso-callback'
     | '/$locale/sign-up_/$'
     | '/$locale/sign-up_/sso-callback'
     | '/$locale/tasks_/$'
+    | '/$locale/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LocaleRoute: typeof LocaleRouteWithChildren
+  AdminRoute: typeof AdminRoute
   PreorderProductsSplatRoute: typeof PreorderProductsSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/$locale': {
       id: '/$locale'
       path: '/$locale'
@@ -250,11 +306,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleSignInRouteImport
       parentRoute: typeof LocaleRoute
     }
+    '/$locale/services': {
+      id: '/$locale/services'
+      path: '/services'
+      fullPath: '/$locale/services'
+      preLoaderRoute: typeof LocaleServicesRouteImport
+      parentRoute: typeof LocaleRoute
+    }
     '/$locale/preorder': {
       id: '/$locale/preorder'
       path: '/preorder'
       fullPath: '/$locale/preorder'
       preLoaderRoute: typeof LocalePreorderRouteImport
+      parentRoute: typeof LocaleRoute
+    }
+    '/$locale/admin/': {
+      id: '/$locale/admin/'
+      path: '/admin'
+      fullPath: '/$locale/admin/'
+      preLoaderRoute: typeof LocaleAdminIndexRouteImport
       parentRoute: typeof LocaleRoute
     }
     '/$locale/tasks_/$': {
@@ -285,6 +355,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleSignInSsoCallbackRouteImport
       parentRoute: typeof LocaleRoute
     }
+    '/$locale/admin/services': {
+      id: '/$locale/admin/services'
+      path: '/admin/services'
+      fullPath: '/$locale/admin/services'
+      preLoaderRoute: typeof LocaleAdminServicesRouteImport
+      parentRoute: typeof LocaleRoute
+    }
     '/$locale/admin/products': {
       id: '/$locale/admin/products'
       path: '/admin/products'
@@ -304,30 +381,36 @@ declare module '@tanstack/react-router' {
 
 interface LocaleRouteChildren {
   LocalePreorderRoute: typeof LocalePreorderRoute
+  LocaleServicesRoute: typeof LocaleServicesRoute
   LocaleSignInRoute: typeof LocaleSignInRoute
   LocaleSignUpRoute: typeof LocaleSignUpRoute
   LocaleTasksRoute: typeof LocaleTasksRoute
   LocaleIndexRoute: typeof LocaleIndexRoute
   LocaleAdminPreordersRoute: typeof LocaleAdminPreordersRoute
   LocaleAdminProductsRoute: typeof LocaleAdminProductsRoute
+  LocaleAdminServicesRoute: typeof LocaleAdminServicesRoute
   LocaleSignInSsoCallbackRoute: typeof LocaleSignInSsoCallbackRoute
   LocaleSignUpSplatRoute: typeof LocaleSignUpSplatRoute
   LocaleSignUpSsoCallbackRoute: typeof LocaleSignUpSsoCallbackRoute
   LocaleTasksSplatRoute: typeof LocaleTasksSplatRoute
+  LocaleAdminIndexRoute: typeof LocaleAdminIndexRoute
 }
 
 const LocaleRouteChildren: LocaleRouteChildren = {
   LocalePreorderRoute: LocalePreorderRoute,
+  LocaleServicesRoute: LocaleServicesRoute,
   LocaleSignInRoute: LocaleSignInRoute,
   LocaleSignUpRoute: LocaleSignUpRoute,
   LocaleTasksRoute: LocaleTasksRoute,
   LocaleIndexRoute: LocaleIndexRoute,
   LocaleAdminPreordersRoute: LocaleAdminPreordersRoute,
   LocaleAdminProductsRoute: LocaleAdminProductsRoute,
+  LocaleAdminServicesRoute: LocaleAdminServicesRoute,
   LocaleSignInSsoCallbackRoute: LocaleSignInSsoCallbackRoute,
   LocaleSignUpSplatRoute: LocaleSignUpSplatRoute,
   LocaleSignUpSsoCallbackRoute: LocaleSignUpSsoCallbackRoute,
   LocaleTasksSplatRoute: LocaleTasksSplatRoute,
+  LocaleAdminIndexRoute: LocaleAdminIndexRoute,
 }
 
 const LocaleRouteWithChildren =
@@ -336,6 +419,7 @@ const LocaleRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LocaleRoute: LocaleRouteWithChildren,
+  AdminRoute: AdminRoute,
   PreorderProductsSplatRoute: PreorderProductsSplatRoute,
 }
 export const routeTree = rootRouteImport

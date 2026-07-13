@@ -116,15 +116,17 @@ function PreorderPage() {
       <div className="page-wrap">
         <div className="grid gap-8 lg:grid-cols-[1fr_22rem] lg:items-start">
           <section>
-            <p className="animate-rise eyebrow mb-4">
-              {m.preorder_eyebrow({}, { locale })}
-            </p>
-            <h1 className="animate-rise section-title [animation-delay:90ms]">
-              {m.preorder_title({}, { locale })}
-            </h1>
-            <p className="animate-rise mt-5 max-w-3xl text-base leading-8 text-[var(--muted-ink)] [animation-delay:160ms]">
-              {m.preorder_description({}, { locale })}
-            </p>
+            <div className="preorder-catalog-intro">
+              <p className="animate-rise eyebrow mb-4">
+                {m.preorder_eyebrow({}, { locale })}
+              </p>
+              <h1 className="animate-rise section-title [animation-delay:90ms]">
+                {m.preorder_title({}, { locale })}
+              </h1>
+              <p className="animate-rise mt-5 max-w-3xl text-base leading-8 text-[var(--muted-ink)] [animation-delay:160ms]">
+                {m.preorder_description({}, { locale })}
+              </p>
+            </div>
 
             {!isLoaded && (
               <Notice>{m.preorder_checking_account({}, { locale })}</Notice>
@@ -156,14 +158,14 @@ function PreorderPage() {
                 return (
                   <article
                     key={product.id}
-                    className="animate-rise product-card"
+                    className="animate-rise product-card product-card-premium"
                     style={{ animationDelay: `${220 + index * 70}ms` }}
                   >
                     {product.imageUrl ? (
                       <img
                         src={product.imageUrl}
                         alt=""
-                        className="aspect-[4/3] w-full rounded-lg object-cover"
+                        className="product-image aspect-[4/3] w-full rounded-lg object-cover"
                       />
                     ) : (
                       <div className="grid aspect-[4/3] w-full place-items-center rounded-lg bg-[var(--muted)] text-[var(--accent-strong)]">
@@ -181,7 +183,7 @@ function PreorderPage() {
                           {product.name}
                         </h2>
                       </div>
-                      <p className="shrink-0 font-bold text-[var(--ink)]">
+                      <p className="product-price-tag shrink-0 font-bold text-[var(--ink)]">
                         {formatMoney(product.priceCents, product.currency)}
                       </p>
                     </div>

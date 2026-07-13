@@ -5,11 +5,14 @@
   "imports": {
     "#/*": "./src/*"
   },
+  "overrides": {
+    "@hono/node-server": "1.19.13"
+  },
   "scripts": {
-    "start": "node .output/server/index.mjs",
-    "dev": "vite dev --host 0.0.0.0 --port 3000",
+    "start": "dotenv -e .env.local -- node .output/server/index.mjs",
+    "dev": "dotenv -e .env.local -- vite dev --host 0.0.0.0 --port 3000",
     "generate-routes": "tsr generate",
-    "build": "vite build",
+    "build": "dotenv -e .env.local -- vite build",
     "preview": "vite preview --host 0.0.0.0",
     "test": "vitest run",
     "lint": "eslint",
@@ -24,8 +27,8 @@
   },
   "dependencies": {
     "@clerk/tanstack-react-start": "^1.4.9",
-    "@prisma/adapter-pg": "^7.4.2",
-    "@prisma/client": "^7.4.2",
+    "@prisma/adapter-pg": "^7.8.0",
+    "@prisma/client": "^7.8.0",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/react-query": "latest",
     "@tanstack/react-router": "latest",
@@ -36,7 +39,7 @@
     "clsx": "^2.1.1",
     "lucide-react": "^0.545.0",
     "nitro": "^3.0.260610-beta",
-    "prisma": "^7.4.2",
+    "prisma": "^7.8.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "tailwind-merge": "^3.0.2",

@@ -53,6 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   Todo: 'Todo',
   Product: 'Product',
+  Service: 'Service',
   Preorder: 'Preorder',
   PreorderItem: 'PreorderItem'
 } as const
@@ -97,6 +98,29 @@ export const ProductScalarFieldEnum = {
 } as const
 
 export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
+
+
+export const ServiceScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  nameEn: 'nameEn',
+  nameRu: 'nameRu',
+  description: 'description',
+  descriptionEn: 'descriptionEn',
+  descriptionRu: 'descriptionRu',
+  category: 'category',
+  categoryEn: 'categoryEn',
+  categoryRu: 'categoryRu',
+  imageUrl: 'imageUrl',
+  durationMinutes: 'durationMinutes',
+  priceCents: 'priceCents',
+  currency: 'currency',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
 
 
 export const PreorderScalarFieldEnum = {

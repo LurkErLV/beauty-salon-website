@@ -1,9 +1,8 @@
-import { createFileRoute, redirect } from '@tanstack/react-router'
+import { Link, createFileRoute, redirect } from '@tanstack/react-router'
 import {
   ArrowRight,
   CalendarCheck,
   MapPin,
-  Scissors,
   Sparkles,
   Star,
 } from 'lucide-react'
@@ -24,20 +23,6 @@ export function HomePage() {
   const locale = useCurrentLocale()
   const { data: treatwellData, isLoading: isTreatwellLoading } =
     useTreatwellReviews()
-  const services = [
-    {
-      title: m.service_hair_title({}, { locale }),
-      description: m.service_hair_description({}, { locale }),
-    },
-    {
-      title: m.service_skin_title({}, { locale }),
-      description: m.service_skin_description({}, { locale }),
-    },
-    {
-      title: m.service_makeup_title({}, { locale }),
-      description: m.service_makeup_description({}, { locale }),
-    },
-  ]
   const features = [
     m.feature_private({}, { locale }),
     m.feature_consultation({}, { locale }),
@@ -60,21 +45,14 @@ export function HomePage() {
 
   return (
     <main>
-      <section className="relative isolate min-h-[calc(100vh-4rem)] overflow-hidden px-4 py-16 sm:px-6 lg:px-8">
-        <img
-          src="/salon-room-chairs.webp"
-          alt=""
-          className="hero-image-entrance absolute inset-0 -z-20 h-full w-full object-cover object-[62%_center]"
-        />
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(255,250,246,0.96)_0%,rgba(255,250,246,0.86)_43%,rgba(255,250,246,0.35)_78%)] dark:bg-[linear-gradient(90deg,rgba(18,22,25,0.92)_0%,rgba(18,22,25,0.78)_46%,rgba(18,22,25,0.32)_82%)]" />
-
-        <div className="page-wrap flex min-h-[calc(100vh-12rem)] items-center">
-          <div className="max-w-2xl">
+      <section className="premium-hero px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
+        <div className="page-wrap premium-hero-grid">
+          <div className="premium-hero-copy">
             <p className="animate-rise eyebrow mb-5 inline-flex items-center gap-2">
               <Sparkles className="h-4 w-4" />
               {m.hero_eyebrow({}, { locale })}
             </p>
-            <h1 className="animate-rise display-title text-5xl font-semibold leading-[1.02] text-[var(--ink)] [animation-delay:120ms] sm:text-6xl lg:text-7xl">
+            <h1 className="animate-rise display-title premium-hero-title [animation-delay:120ms]">
               {m.hero_title({}, { locale })}
             </h1>
             <p className="animate-rise mt-6 max-w-xl text-lg leading-8 text-[var(--muted-ink)] [animation-delay:220ms] sm:text-xl">
@@ -90,7 +68,7 @@ export function HomePage() {
                 <ArrowRight className="h-5 w-5" />
               </a>
             </div>
-            <div className="mt-10 grid max-w-xl grid-cols-3 gap-3">
+            <div className="mt-10 grid max-w-xl grid-cols-3 gap-2 sm:gap-3">
               <Stat
                 value="12+"
                 label={m.stat_years({}, { locale })}
@@ -110,6 +88,24 @@ export function HomePage() {
               />
             </div>
           </div>
+
+          <div className="animate-rise premium-hero-visual [animation-delay:180ms]">
+            <div className="premium-hero-frame">
+              <img
+                src="/salon-room-chairs.webp"
+                alt="Interior of Île de Beauté Beauty Salon"
+                className="hero-image-entrance h-full w-full object-cover"
+              />
+            </div>
+            <div className="premium-hero-inset">
+              <img
+                src="/salon-treatment-room.webp"
+                alt="Private treatment room at Île de Beauté Beauty Salon"
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div className="premium-hero-mark" aria-hidden="true">ÎB</div>
+          </div>
         </div>
       </section>
 
@@ -128,29 +124,21 @@ export function HomePage() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
-            {services.map((service, index) => (
-              <article
-                key={service.title}
-                className="animate-rise service-card"
-                style={{ animationDelay: `${index * 90}ms` }}
-              >
-                <Scissors className="h-6 w-6 text-[var(--accent)]" />
-                <h3 className="mt-5 text-xl font-semibold text-[var(--ink)]">
-                  {service.title}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-[var(--muted-ink)]">
-                  {service.description}
-                </p>
-              </article>
-            ))}
+          <div className="animate-rise mt-10 flex flex-col gap-6 border-t border-[var(--line)] pt-8 sm:flex-row sm:items-center sm:justify-between">
+            <p className="max-w-2xl text-sm leading-7 text-[var(--muted-ink)]">
+              {m.service_hair_description({}, { locale })}
+            </p>
+            <Link to="/$locale/services" params={{ locale }} className="primary-action shrink-0">
+              {m.hero_secondary_cta({}, { locale })}
+              <ArrowRight className="h-5 w-5" />
+            </Link>
           </div>
         </div>
       </section>
 
       <section id="studio" className="px-4 py-20 sm:px-6 lg:px-8">
         <div className="page-wrap grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="animate-rise overflow-hidden rounded-lg">
+          <div className="animate-rise editorial-frame">
             <img
               src="/salon-treatment-room.webp"
               alt="Private treatment room at Île de Beauté Beauty Salon"
@@ -181,7 +169,7 @@ export function HomePage() {
             {studioPhotos.map((photo, index) => (
               <figure
                 key={photo.src}
-                className="animate-rise overflow-hidden rounded-lg border border-[var(--line)] bg-[var(--surface)] shadow-[0_20px_50px_rgba(37,39,45,0.08)]"
+                className={`animate-rise premium-gallery-item ${index === 0 ? 'md:translate-y-8' : index === 2 ? 'md:-translate-y-8' : ''}`}
                 style={{ animationDelay: `${index * 90}ms` }}
               >
                 <img
@@ -243,7 +231,7 @@ function Stat({
 }) {
   return (
     <div
-      className="animate-rise rounded-lg border border-[var(--line)] bg-[var(--surface-soft)] px-4 py-3"
+      className="animate-rise premium-stat"
       style={{ animationDelay: delay }}
     >
       <p className="text-2xl font-semibold text-[var(--ink)]">{value}</p>

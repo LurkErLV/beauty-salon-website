@@ -22,7 +22,7 @@ export const clerkAppearance = {
     socialButtonsBlockButton:
       'rounded-lg border border-[var(--line)] bg-[var(--surface)] text-[var(--ink)]',
     formButtonPrimary:
-      'rounded-full bg-[var(--accent)] text-white hover:bg-[var(--accent-strong)]',
+      'rounded-full bg-[var(--accent)] text-[var(--primary-foreground)] hover:bg-[var(--accent-strong)]',
     formFieldInput:
       'rounded-lg border-[var(--line)] bg-[var(--surface)] text-[var(--ink)]',
     footerActionLink: 'text-[var(--accent-strong)]',

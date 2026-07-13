@@ -10,7 +10,6 @@ import ParaglideLocaleSwitcher from './LocaleSwitcher.tsx'
 import ThemeToggle from './ThemeToggle'
 
 const navItems = [
-  { hash: 'services', label: () => m.nav_services },
   { hash: 'studio', label: () => m.nav_studio },
   { hash: 'reviews', label: () => m.nav_reviews },
   { hash: 'booking', label: () => m.nav_booking },
@@ -48,6 +47,9 @@ export default function Header() {
         </Link>
 
         <div className="hidden min-w-0 flex-1 items-center justify-center gap-2 text-sm font-semibold min-[950px]:flex">
+          <Link to="/$locale/services" params={{ locale }} className="nav-link">
+            {m.nav_services({}, { locale })}
+          </Link>
           {navItems.map((item) => (
             <Link
               key={item.hash}
@@ -99,6 +101,14 @@ export default function Header() {
           className="page-wrap border-t border-[var(--line)] py-4 min-[950px]:hidden"
         >
           <div className="grid gap-2">
+            <Link
+              to="/$locale/services"
+              params={{ locale }}
+              className="rounded-lg px-3 py-3 text-sm font-semibold text-[var(--ink)] no-underline transition hover:bg-[var(--surface-soft)]"
+              onClick={closeMenu}
+            >
+              {m.nav_services({}, { locale })}
+            </Link>
             {navItems.map((item) => (
               <Link
                 key={item.hash}

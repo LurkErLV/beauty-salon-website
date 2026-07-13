@@ -443,7 +443,7 @@ async function requireVerifiedUser() {
   }
 }
 
-async function requireAdmin() {
+export async function requireAdmin() {
   const user = await requireVerifiedUser()
   const adminEmails = (process.env.PREORDER_ADMIN_EMAILS ?? '')
     .split(',')

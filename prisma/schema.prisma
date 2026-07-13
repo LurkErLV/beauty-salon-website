@@ -28,6 +28,26 @@ model Product {
   items       PreorderItem[]
 }
 
+model Service {
+  id              Int      @id @default(autoincrement())
+  name            String
+  nameEn          String?
+  nameRu          String?
+  description     String
+  descriptionEn   String?
+  descriptionRu   String?
+  category        String?
+  categoryEn      String?
+  categoryRu      String?
+  imageUrl         String?
+  durationMinutes Int?
+  priceCents      Int
+  currency        String   @default("CHF")
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
 model Preorder {
   id            Int             @id @default(autoincrement())
   clerkUserId   String

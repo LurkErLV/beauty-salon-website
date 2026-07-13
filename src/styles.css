@@ -6,19 +6,20 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #fffaf6;
+  --background: #fff8f5;
+  --background-end: #fffdfb;
   --surface: #ffffff;
-  --surface-soft: rgba(255, 255, 255, 0.72);
+  --surface-soft: rgba(255, 255, 255, 0.78);
   --foreground: #25272d;
   --ink: #25272d;
   --muted-ink: #646a71;
-  --accent: #c76d76;
-  --accent-strong: #9f4651;
+  --accent: #c86f7f;
+  --accent-strong: #934553;
   --sage: #718671;
-  --line: rgba(37, 39, 45, 0.13);
-  --chip-bg: rgba(255, 255, 255, 0.74);
-  --chip-line: rgba(37, 39, 45, 0.13);
-  --header-bg: rgba(255, 250, 246, 0.82);
+  --line: rgba(78, 55, 56, 0.13);
+  --chip-bg: rgba(255, 255, 255, 0.8);
+  --chip-line: rgba(78, 55, 56, 0.14);
+  --header-bg: rgba(255, 248, 245, 0.86);
   --card: #ffffff;
   --card-foreground: #25272d;
   --popover: #ffffff;
@@ -37,6 +38,7 @@
 
 .dark {
   --background: #121619;
+  --background-end: #171d21;
   --surface: #1b2024;
   --surface-soft: rgba(27, 32, 36, 0.72);
   --foreground: #f7f0ea;
@@ -99,9 +101,22 @@
 
   body {
     @apply m-0 bg-background text-foreground;
+    background: linear-gradient(180deg, var(--background), var(--background-end) 46rem);
     font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  input,
+  textarea,
+  select {
+    color: var(--ink);
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--muted-ink);
+    opacity: 0.85;
   }
 }
 
@@ -131,20 +146,136 @@
   @apply text-3xl font-semibold leading-tight text-[var(--ink)] sm:text-4xl lg:text-5xl;
 }
 
+.premium-hero {
+  @apply relative isolate overflow-hidden border-b border-[var(--line)];
+  background: linear-gradient(135deg, var(--background) 0%, var(--surface) 58%, var(--muted) 100%);
+}
+
+.premium-hero::after {
+  content: '';
+  @apply pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.45;
+}
+
+.premium-hero-grid {
+  @apply grid min-h-[calc(100vh-8rem)] items-center gap-12 lg:grid-cols-[0.88fr_1.12fr] lg:gap-16;
+}
+
+.premium-hero-copy {
+  @apply relative z-10 max-w-2xl;
+}
+
+.premium-hero-title {
+  @apply text-5xl font-semibold leading-[0.98] text-[var(--ink)] sm:text-6xl lg:text-7xl;
+}
+
+.premium-hero-visual {
+  @apply relative mx-auto w-full max-w-2xl pb-12 pl-4 sm:pl-10 lg:pb-16;
+}
+
+.premium-hero-frame {
+  @apply aspect-[4/5] overflow-hidden rounded-lg border border-[var(--line)] bg-[var(--surface)] shadow-[0_40px_100px_rgba(37,39,45,0.2)] sm:aspect-[5/6];
+}
+
+.premium-hero-inset {
+  @apply absolute bottom-0 left-0 aspect-[4/3] w-[42%] overflow-hidden rounded-lg border-4 border-[var(--background)] bg-[var(--surface)] shadow-[0_24px_60px_rgba(37,39,45,0.2)];
+}
+
+.premium-hero-mark {
+  @apply absolute right-3 top-3 flex h-16 w-16 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--surface-soft)] text-lg font-semibold text-[var(--accent-strong)] shadow-[0_16px_40px_rgba(37,39,45,0.16)] backdrop-blur sm:-right-5 sm:top-10;
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.premium-stat {
+  @apply rounded-lg border border-[var(--line)] bg-[var(--surface-soft)] px-3 py-3 shadow-[0_12px_30px_rgba(37,39,45,0.06)] backdrop-blur sm:px-4;
+}
+
+.editorial-frame,
+.premium-gallery-item {
+  @apply overflow-hidden rounded-lg border border-[var(--line)] bg-[var(--surface)] shadow-[0_26px_70px_rgba(37,39,45,0.12)];
+}
+
+.premium-gallery-item {
+  @apply transition duration-500 hover:-translate-y-1 hover:shadow-[0_34px_84px_rgba(37,39,45,0.16)];
+}
+
 .section-copy {
   @apply mt-4 text-base leading-8 text-[var(--muted-ink)] sm:text-lg;
 }
 
+.premium-page-hero {
+  @apply border-b border-[var(--line)];
+  background: linear-gradient(135deg, var(--background), var(--surface) 55%, var(--muted));
+}
+
+.service-category-heading {
+  @apply flex items-center justify-between border-b border-[var(--line)] pb-4;
+}
+
+.service-category-heading span {
+  @apply grid h-8 min-w-8 place-items-center rounded-full border border-[var(--line)] bg-[var(--surface)] px-2 text-xs font-bold text-[var(--muted-ink)];
+}
+
+.service-price-card {
+  @apply flex min-h-64 flex-col justify-between rounded-lg border border-[var(--line)] bg-[var(--surface)] p-6 shadow-[0_18px_50px_rgba(37,39,45,0.07)] transition hover:-translate-y-1 hover:border-[var(--accent)] hover:shadow-[0_28px_68px_rgba(37,39,45,0.12)];
+}
+
+.admin-link-card {
+  @apply rounded-lg border border-[var(--line)] bg-[var(--surface)] p-7 text-left no-underline shadow-[0_22px_54px_rgba(37,39,45,0.09)] transition hover:-translate-y-1 hover:border-[var(--accent)] hover:shadow-[0_30px_70px_rgba(37,39,45,0.14)];
+}
+
+.admin-form-panel {
+  @apply rounded-lg border border-[var(--line)] bg-[var(--surface)] p-5 shadow-[0_22px_54px_rgba(37,39,45,0.09)];
+}
+
+.admin-field {
+  @apply mt-4 block text-sm font-semibold text-[var(--ink)];
+}
+
+.admin-control {
+  @apply mt-2 w-full rounded-lg border border-[var(--line)] bg-[var(--surface-soft)] p-3 text-sm text-[var(--ink)];
+}
+
+.status-pill {
+  @apply rounded-full border border-[var(--line)] bg-[var(--surface-soft)] px-2.5 py-1 text-xs font-bold text-[var(--muted-ink)];
+}
+
+.category-pill {
+  @apply rounded-full bg-[rgba(200,111,127,0.12)] px-2.5 py-1 text-xs font-bold text-[var(--accent-strong)];
+}
+
+.product-card-premium {
+  @apply overflow-hidden border-t-2 border-t-[var(--accent)];
+}
+
+.preorder-catalog-intro {
+  @apply rounded-lg border border-[var(--line)] bg-[var(--surface)] p-6 shadow-[0_26px_70px_rgba(37,39,45,0.1)] sm:p-8;
+  background: linear-gradient(135deg, var(--surface), var(--surface-soft) 65%, var(--muted));
+}
+
+.product-price-tag {
+  @apply rounded-full border border-[var(--line)] bg-[var(--surface-soft)] px-3 py-1.5 shadow-[0_8px_24px_rgba(37,39,45,0.07)];
+}
+
+.product-image {
+  @apply shadow-[0_16px_36px_rgba(37,39,45,0.12)] transition duration-700;
+}
+
+.product-card-premium:hover .product-image {
+  transform: scale(1.025);
+}
+
 .nav-link {
-  @apply rounded-full px-3 py-2 text-[var(--muted-ink)] no-underline transition hover:bg-[var(--surface-soft)] hover:text-[var(--ink)];
+  @apply rounded-full px-3 py-2 text-[var(--muted-ink)] no-underline transition hover:-translate-y-0.5 hover:bg-[var(--surface-soft)] hover:text-[var(--ink)];
 }
 
 .primary-action {
-  @apply inline-flex items-center justify-center gap-2 rounded-full bg-[var(--accent)] px-5 py-3 text-sm font-bold text-white no-underline shadow-[0_18px_38px_rgba(159,70,81,0.25)] transition hover:-translate-y-0.5 hover:bg-[var(--accent-strong)];
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-[var(--accent)] px-5 py-3 text-sm font-bold text-[var(--primary-foreground)] no-underline shadow-[0_18px_38px_rgba(147,69,83,0.28)] transition hover:-translate-y-0.5 hover:bg-[var(--accent-strong)] hover:shadow-[0_22px_46px_rgba(147,69,83,0.34)];
 }
 
 .secondary-action {
-  @apply inline-flex items-center justify-center gap-2 rounded-full border border-[var(--line)] bg-[var(--surface-soft)] px-5 py-3 text-sm font-bold text-[var(--ink)] no-underline transition hover:-translate-y-0.5 hover:bg-[var(--surface)];
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-[var(--line)] bg-[var(--surface-soft)] px-5 py-3 text-sm font-bold text-[var(--ink)] no-underline shadow-[0_12px_28px_rgba(37,39,45,0.06)] backdrop-blur transition hover:-translate-y-0.5 hover:bg-[var(--surface)] hover:shadow-[0_18px_36px_rgba(37,39,45,0.1)];
 }
 
 .service-card,
@@ -152,7 +283,17 @@
 .review-card,
 .review-summary,
 .product-card {
-  @apply rounded-lg border border-[var(--line)] bg-[var(--surface)] p-6 shadow-[0_20px_50px_rgba(37,39,45,0.08)];
+  @apply rounded-lg border border-[var(--line)] bg-[var(--surface)] p-6 shadow-[0_22px_54px_rgba(37,39,45,0.09)] transition hover:-translate-y-1 hover:shadow-[0_28px_68px_rgba(37,39,45,0.13)];
+}
+
+.premium-card {
+  @apply relative overflow-hidden;
+}
+
+.premium-card::before {
+  content: '';
+  @apply absolute inset-x-0 top-0 h-1 bg-[var(--accent)];
+  opacity: 0.7;
 }
 
 .product-row {
